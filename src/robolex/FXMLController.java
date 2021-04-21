@@ -1,29 +1,22 @@
 package robolex;
 
-import javax.swing.event.ChangeEvent;
-
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 
 public class FXMLController {
-
-	public MainController mainController;
 	@FXML
 	public Slider simulationSpeedSlider;
 
 	public void initilize() {
 		simulationSpeedSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-			mainController.box.setRotate((double)newValue);
+			//Envit.box.setRotate((double)newValue);
 		});
-		mainController.box.setRotate((double)simulationSpeedSlider.getValue());
+		//MainController.box.setRotate((double)simulationSpeedSlider.getValue());
 	}
 
 	public void runSimulationButtonAction(Event event) {
 		System.out.println("Pressed runSimulationButton");
-
 	}
 
 	public void runEditorButtonAction(Event event) {
@@ -31,6 +24,21 @@ public class FXMLController {
 	}
 
 	public void restartCamera(Event event) {
-		mainController.cam.reset();
+		MainController.cam.reset();
+	}
+	
+	public void restartRobot(Event event) {
+		//Robot.restartRobotPosition();
+	}
+	
+	public void pauseRobot(Event event) {
+	/*	if(MainController.robotPaused == 0){
+			MainController.robotPaused = 1;
+			pauseRobotButton.setText("Pause Robot");
+		}
+		else{
+			MainController.robotPaused = 0;
+			pauseRobotButton.setText("Start Robot");
+		}*/
 	}
 }

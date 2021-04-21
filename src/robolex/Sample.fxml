@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="805.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="robolex.FXMLController">
+<VBox prefHeight="805.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="robolex.FXMLController">
   <children>
       <TabPane prefHeight="85.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -36,13 +36,13 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" text="Resume Simulation" />
-                        <Button layoutX="144.0" layoutY="16.0" mnemonicParsing="false" text="Pause Robot" />
-                        <Slider layoutX="368.0" layoutY="9.0" fx:id="simulationSpeedSlider" />
-                        <Button layoutX="236.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Follow Robot" />
-                        <Button layoutX="336.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Free Camera" />
-                        <Button layoutX="428.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Restart Camera" onMouseClicked="#restartCamera"/>
-                        <Label layoutX="236.0" layoutY="6.0" text="Speed of Simulation: " />
+                        <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#restartRobot" text="Resume Simulation" />
+                        <Button fx:id="pauseRobotButton" layoutX="160.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#pauseRobot" prefHeight="25.0" prefWidth="109.0" text="Start Robot" />
+                        <Slider fx:id="simulationSpeedSlider" layoutX="400.0" layoutY="23.0" />
+                        <Button layoutX="753.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Follow Robot" />
+                        <Button layoutX="588.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Free Camera" />
+                        <Button layoutX="916.0" layoutY="17.0" mnemonicParsing="false" onMouseClicked="#restartCamera" prefHeight="25.0" prefWidth="153.0" text="Restart Camera" />
+                        <Label layoutX="287.0" layoutY="22.0" text="Speed of Simulation: " />
                      </children>
                   </AnchorPane>
             </content>

@@ -25,12 +25,10 @@ public class FirstPersonCamera {
 	private double ox = 0, oy = 0;
 	private double speed = 0.1;
 	private Scene mainScene;
-	private MainController mainController;
 	
-	public FirstPersonCamera(SubScene scene, Scene mainScene, MainController mainController) {
+	public FirstPersonCamera(SubScene scene, Scene mainScene) {
 		this.scene = scene;
 		this.mainScene = mainScene;
-		this.mainController = mainController;
 		Initilize();
 	}
 	
@@ -41,7 +39,8 @@ public class FirstPersonCamera {
         camera.setFarClip(1000);
         scene.setCamera(camera);
         camera.setDepthTest(DepthTest.ENABLE);
-       
+        reset();
+        update();
         scene.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED, (me -> {
         	mousePressed = true;
         	ox = me.getScreenX();
@@ -63,11 +62,11 @@ public class FirstPersonCamera {
         	pitch -= deltaRotation * multiplier;
         	if(pitch < -90)pitch = -90;
         	if(pitch > 90)pitch = 90;
-        	UpdateCamera();
+        	update();
         }));
 	}
 	
-	private void UpdateCamera() {
+	private void update() {
 		camera.getTransforms().clear();
 		camera.setTranslateX(x);
     	camera.setTranslateY(y);
@@ -78,30 +77,30 @@ public class FirstPersonCamera {
 		camera.getTransforms().add(rx);
 	}
 	
-	private void MoveForward(double front) {
+	private void moveForward(double front) {
 		x += Math.cos(ToRadians(yaw-90)) * front;
 		z -= Math.sin(ToRadians(yaw-90)) * front;
 	}
 	
-	private void MoveRight(double right) {
+	private void moveRight(double right) {
 		x += Math.cos(ToRadians(yaw)) * right;
 		z -= Math.sin(ToRadians(yaw)) * right;
 	}
 	
-	public Camera GetCamera() {
+	public Camera getCamera() {
 		return camera;
 	}
 	
 	public void handle(long now) {
-		if(mainController.keysDown.contains(KeyCode.CONTROL))speed = 2;
-		else speed = .5;
-		if(mainController.keysDown.contains(KeyCode.W))MoveForward(speed);
-		if(mainController.keysDown.contains(KeyCode.A))MoveRight(-speed);
-		if(mainController.keysDown.contains(KeyCode.S))MoveForward(-speed);
-		if(mainController.keysDown.contains(KeyCode.D))MoveRight(speed);
-		if(mainController.keysDown.contains(KeyCode.SPACE))y-=speed;
-		if(mainController.keysDown.contains(KeyCode.SHIFT))y+=speed;
-		UpdateCamera();
+		if(MainController.keysDown.contains(KeyCode.CONTROL))speed = 0.1;
+		else speed = .01;
+		if(MainController.keysDown.contains(KeyCode.W))moveForward(speed);
+		if(MainController.keysDown.contains(KeyCode.A))moveRight(-speed);
+		if(MainController.keysDown.contains(KeyCode.S))moveForward(-speed);
+		if(MainController.keysDown.contains(KeyCode.D))moveRight(speed);
+		if(MainController.keysDown.contains(KeyCode.SPACE))y-=speed;
+		if(MainController.keysDown.contains(KeyCode.SHIFT))y+=speed;
+		update();
 	}
 	
 	public double ToRadians(double angle) {
@@ -109,9 +108,9 @@ public class FirstPersonCamera {
 	}
 	
 	public void reset() {
-		x = 0;
-		y = 0;
-		z = 0;
+		x = -1;
+		y = -1;
+		z = -1;
 	}
 
 	public double getX() {
@@ -124,5 +123,13 @@ public class FirstPersonCamera {
 	
 	public double getZ() {
 		return z;
+	}
+	
+	public void setYaw(double yaw) {
+		this.yaw = yaw;
+	}
+	
+	public void setPitch(double pitch) {
+		this.pitch = pitch;
 	}
 }

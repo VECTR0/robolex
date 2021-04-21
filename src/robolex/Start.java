@@ -35,23 +35,20 @@ public class Start extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.setTitle("Robolex - Inverse Kinematics simulator 2020");
-			primaryStage.show();
-
+			
 			Group sRoot = new Group();
 			SubScene sub = new SubScene(sRoot, 1280, 720, true, SceneAntialiasing.BALANCED);
 			sub.setFill(Color.ANTIQUEWHITE);
 			root.getChildren().add(sub);
 		
-			MainController mainController = new MainController(primaryStage, scene, sub, sRoot);
-			
-			System.out.println(fxmlController);
-			fxmlController.mainController = mainController;
-			mainController.start();
-			mainController.buildScene();
+			MainController.initilize(primaryStage, scene, sub, sRoot);
+			MainController.buildScene();
 			fxmlController.initilize();
 			
+			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.stop();
 		}
 	}
 }
