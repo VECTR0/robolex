@@ -1,55 +1,52 @@
 package robolex;
 
+import com.sun.scenario.effect.Color4f;
+import com.sun.scenario.effect.light.SpotLight;
 
-import javafx.geometry.Point3D;
-import javafx.scene.Group;
+import javafx.scene.AmbientLight;
+import javafx.scene.PointLight;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
-
 
 public class Environment{
+	public static Element center;
+	public static Robot robot;
+	public static boolean paused = false;
 	
-	//private Group subRoot;
-	static Element center;
-	static Robot robot;
-	
-	public static void build() {
-		/*
-		Group newEnvElements = new Group();
-		Group robot = Robot.initRobot();
-		
-		newEnvElements.getChildren().add(robot);
-		
-		MainController.subRoot.getChildren().add(newEnvElements);*/
-		
-		
-		
+	public static void build() {		
 		center = new Element("WorldCenter", MainController.subRoot);
-		
-		
-		
+
 		Box ground = new Box(10, 1, 10);
 		ground.setTranslateY(0.5);
 		PhongMaterial mat = new PhongMaterial(Color.GREENYELLOW);
 		mat.setSpecularPower(1);
 		ground.setMaterial(mat);
-		
 		center.group.getChildren().add(ground);
 		
+		Element test = new Element("Test", center);
 		
-		robot = new Robot("Robot", center);
-		robot.group.setTranslateY(-.5);
-		System.out.println(center.toString());
-
+		robot = new Robot("Robot", test);
+		robot.setTranslateX(-2);
+		robot.setTranslateY(-.5);
+		System.out.println(center);
 		System.out.println(" ");
-		System.out.println(center.findInChildren("ArmRF").toString());
-
+		System.out.println(center.findInChildren("ArmRF"));
+		
+		PointLight light = new PointLight(new Color(.3, 0.3, 0, 0.1));
+		light.setTranslateY(-3);
+		light.setTranslateZ(1);
+		robot.group.getChildren().add(light);
+		AmbientLight ambient = new AmbientLight(Color.DARKGREY);
+		center.group.getChildren().add(ambient);
 	}
 	
+	private static double testValue = 0;
+	
 	public static void tick(long now) {
+		if(paused)return;
 		center.tick(now);
+		center.findInChildren("Test").setRotateY(testValue*.2);
+		testValue += 1;
 	}
 }

@@ -1,9 +1,7 @@
 package robolex;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
 import javafx.scene.Group;
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
@@ -49,7 +47,6 @@ public class Element {
 			children.get(i).tick(now);
 	}
 
-		
 	public Element findInChildren(String name) {
 		if(this.name == name) return this;
 		for (int i = 0; i < children.size(); i++) {

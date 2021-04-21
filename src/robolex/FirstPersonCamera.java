@@ -56,7 +56,6 @@ public class FirstPersonCamera {
         	double multiplier = 0.3;
         	ox = me.getScreenX();
         	yaw += deltaRotation * multiplier;
-        	
         	deltaRotation = me.getScreenY() - oy;
         	oy = me.getScreenY();
         	pitch -= deltaRotation * multiplier;
@@ -92,7 +91,7 @@ public class FirstPersonCamera {
 	}
 	
 	public void handle(long now) {
-		if(MainController.keysDown.contains(KeyCode.CONTROL))speed = 0.1;
+		if(MainController.keysDown.contains(KeyCode.CONTROL))speed = 0.03;
 		else speed = .01;
 		if(MainController.keysDown.contains(KeyCode.W))moveForward(speed);
 		if(MainController.keysDown.contains(KeyCode.A))moveRight(-speed);
