@@ -52,7 +52,6 @@ public class Robot extends Element {
 		RB.setTranslateZ(-.9);
 		RB.setTranslateY(0.5);
 		
-		
 		addArm("ArmLF", -sizeX/2, -sizeY/2, sizeZ/2, -45);
 		addArm("ArmLB", -sizeX/2, -sizeY/2, -sizeZ/2, -180+45);
 		addArm("ArmRF", +sizeX/2, -sizeY/2, sizeZ/2, 45);
@@ -81,9 +80,6 @@ public class Robot extends Element {
 		a.limitedRotation = true;
 		a.minRotY = 70;
 		a.maxRotY = 180;
-		
-
-		
 	}
 	
 	public void addArm(String name, double x, double y, double z, double ry) {
@@ -121,7 +117,7 @@ public class Robot extends Element {
 		a = findInChildren("Joint2");
 		a.limitedRotation = true;
 		a.minRotX = 45;
-		a.maxRotX = 135;
+		a.maxRotX = 105;
 
 	}
 	

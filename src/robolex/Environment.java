@@ -53,6 +53,8 @@ public class Environment{
 		robot.group.getChildren().add(light);
 		ambient = new AmbientLight(Color.DARKGREY);
 		center.group.getChildren().add(ambient);
+		
+		AI.target = new Target("TargetAI", center, Color.BLACK);
 	}	
 	
 	private static double testValue = 0, testValueB = 0, testValueC = .002;
@@ -64,7 +66,7 @@ public class Environment{
 		if(testValueB <= 0 || testValueB >= 1)testValueC = -testValueC;
 		testValueB += testValueC;
 		testValue += 1;
-		
+		AI.Update();
 	}
 	
 	public static double clamp(double x, double min, double max) {

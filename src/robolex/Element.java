@@ -25,7 +25,7 @@ public class Element {
 		Box box = new Box(.1, .1, .1);
 		children = Collections.synchronizedList(new ArrayList<>());
 		group = new Group();
-		group.getChildren().add(box);
+		//group.getChildren().add(box);
 		rx = new Rotate(0, Rotate.X_AXIS);
 		ry = new Rotate(0, Rotate.Y_AXIS);
 		rz = new Rotate(0, Rotate.Z_AXIS);
@@ -125,12 +125,18 @@ public class Element {
 	}
 	
 	public void copyWorldPosition(Element a, boolean copyY) {
-		Point3D local = Point3D.ZERO;//new Point3D(a.getTranslateX(), a.getTranslateY(), a.getTranslateZ());
+		Point3D local = Point3D.ZERO;
 		local = a.group.localToScene(local);
 		local = parent.group.sceneToLocal(local);
 		setTranslateX(local.getX());
 		if(copyY)setTranslateY(local.getY());
 		setTranslateZ(local.getZ());
+	}
+	
+
+	public Point3D getWorldPosition() {
+		Point3D local = Point3D.ZERO;
+		return group.localToScene(local);
 	}
 	
 	public void moveForward(double front) {
@@ -140,7 +146,7 @@ public class Element {
 	
 	public void moveRight(double right) {
 		setTranslateX(getTranslateX() + Math.cos(Math.toRadians(getRotateY()))*right);
-		setTranslateZ(getTranslateZ() + Math.sin(Math.toRadians(getRotateY()))*right);
+		setTranslateZ(getTranslateZ() - Math.sin(Math.toRadians(getRotateY()))*right);
 	}
 
 	@Override
@@ -149,7 +155,7 @@ public class Element {
 	}
 
 	public String toString(int ind) {
-		StringBuilder sb = new StringBuilder(); // speed
+		StringBuilder sb = new StringBuilder();
 		sb.append(name);
 		sb.append('[');
 		sb.append(children.size());
@@ -170,7 +176,6 @@ public class Element {
 	}
 	
 	private static double fixAngle(double a) {
-		double ret = (a) % 360.0;
-		return ret;
+		return (a) % 360.0;
 	}
 }

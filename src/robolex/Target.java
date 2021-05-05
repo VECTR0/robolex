@@ -15,7 +15,7 @@ public class Target extends Element {
 		
 		Sphere s = new Sphere(0.1f);
 		s.setMaterial(new PhongMaterial(c));
-		group.getChildren().add(s);
+		// group.getChildren().add(s);
 	}
 	
 	@Override
