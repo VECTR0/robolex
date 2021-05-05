@@ -26,16 +26,24 @@ public class Environment{
 		PhongMaterial mat = new PhongMaterial(Color.GREENYELLOW);
 		mat.setSpecularPower(1);
 		ground.setMaterial(mat);
-		//center.group.getChildren().add(ground);
-		
-		Element test = new Element("Test", center);
-		test.setTranslateX(2);
-		
-		Target t = new Target("Target", center);
+		center.group.getChildren().add(ground);
 		
 		
-		robot = new Robot("Robot", test);
-		robot.setTranslateX(-2);
+		Target.LF = new Target("TargetLF", center, Color.GREEN);
+		Target.LF.setTranslateX(-1);
+		Target.LF.setTranslateZ(1);
+		Target.LB = new Target("TargetLB", center, Color.GREEN);
+		Target.LB.setTranslateX(-1);
+		Target.LB.setTranslateZ(-1);
+		Target.RF = new Target("TargetRF", center, Color.GREEN);
+		Target.RF.setTranslateX(1);
+		Target.RF.setTranslateZ(1);
+		Target.RB = new Target("TargetRB", center, Color.GREEN);
+		Target.RB.setTranslateX(1);
+		Target.RB.setTranslateZ(-1);
+		
+		
+		robot = new Robot("Robot", center);
 		robot.setTranslateY(-.5);
 		System.out.println(center);
 		
@@ -45,16 +53,6 @@ public class Environment{
 		robot.group.getChildren().add(light);
 		ambient = new AmbientLight(Color.DARKGREY);
 		center.group.getChildren().add(ambient);
-		
-	/*	Label l = new Label("Label1", center);
-		l.t.setFont(new Font(30));
-		l.t.setText("00:00");
-		l.l.setText("XD");
-		l.l.setFont(new Font(20));
-		l.setTranslateY(-2);*/
-		
-		
-		
 	}	
 	
 	private static double testValue = 0, testValueB = 0, testValueC = .002;
@@ -62,7 +60,6 @@ public class Environment{
 	public static void tick(long now) {
 		if(paused)return;
 		center.tick(now);
-		//center.findInChildren("Test").setRotateY(testValue*.2);
 		ambient.setColor(new Color(clamp(testValueB, 0, 1)/2, 0.2, clamp(1-testValueB, 0, 1)/2, 0));
 		if(testValueB <= 0 || testValueB >= 1)testValueC = -testValueC;
 		testValueB += testValueC;

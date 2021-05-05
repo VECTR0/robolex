@@ -5,13 +5,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 
 public class Element {
 	private final List<Element> children;
-	private Element parent;
+	protected Element parent;
 	public Group group;
 	private final Rotate rx, ry, rz;
 	public boolean limitedRotation = false;
@@ -120,6 +122,25 @@ public class Element {
 
 	public double getRotateZ() {
 		return rz.getAngle();
+	}
+	
+	public void copyWorldPosition(Element a, boolean copyY) {
+		Point3D local = Point3D.ZERO;//new Point3D(a.getTranslateX(), a.getTranslateY(), a.getTranslateZ());
+		local = a.group.localToScene(local);
+		local = parent.group.sceneToLocal(local);
+		setTranslateX(local.getX());
+		if(copyY)setTranslateY(local.getY());
+		setTranslateZ(local.getZ());
+	}
+	
+	public void moveForward(double front) {
+		setTranslateX(getTranslateX() + Math.cos(Math.toRadians(getRotateY()-90))*front );
+		setTranslateZ(getTranslateZ() - Math.sin(Math.toRadians(getRotateY()-90))*front);
+	}
+	
+	public void moveRight(double right) {
+		setTranslateX(getTranslateX() + Math.cos(Math.toRadians(getRotateY()))*right);
+		setTranslateZ(getTranslateZ() + Math.sin(Math.toRadians(getRotateY()))*right);
 	}
 
 	@Override
