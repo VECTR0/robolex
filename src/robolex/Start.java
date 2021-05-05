@@ -34,7 +34,7 @@ public class Start extends Application {
 			scene.getStylesheets().add(getClass().getResource("robolex.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
-			primaryStage.setTitle("Robolex - Inverse Kinematics simulator 2020");
+			primaryStage.setTitle("Robolex - Inverse Kinematics simulator 2021");
 			
 			Group sRoot = new Group();
 			SubScene sub = new SubScene(sRoot, 1280, 720, true, SceneAntialiasing.BALANCED);

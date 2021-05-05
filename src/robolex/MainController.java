@@ -52,10 +52,10 @@ public class MainController  {
 		cam = new FirstPersonCamera(scene, mainScene);
 	
 		stage.show();
-		Rotate r = new Rotate(0, Rotate.X_AXIS);
+		
 		timer = new AnimationTimer() {
 			@Override
-			public void handle(long now) {
+			public void handle(long now) {//method ref + lambda
 				MainController.handle(now);
 			}
 		};

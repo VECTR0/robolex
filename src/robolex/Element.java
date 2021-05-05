@@ -1,5 +1,8 @@
 package robolex;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 import javafx.scene.Group;
@@ -11,12 +14,14 @@ public class Element {
 	private Element parent;
 	public Group group;
 	private final Rotate rx, ry, rz;
+	public boolean limitedRotation = false;
+	public double minRotX, maxRotX, minRotY, maxRotY, minRotZ, maxRotZ;
 	private final String name;
 
 	public Element(String name) {
 		this.name = name;
 		Box box = new Box(.1, .1, .1);
-		children = new Vector<Element>(); // thread safety
+		children = Collections.synchronizedList(new ArrayList<>());
 		group = new Group();
 		group.getChildren().add(box);
 		rx = new Rotate(0, Rotate.X_AXIS);
@@ -49,7 +54,7 @@ public class Element {
 
 	public Element findInChildren(String name) {
 		if(this.name == name) return this;
-		for (int i = 0; i < children.size(); i++) {
+		for (int i = 0; i < children.size(); i++) {//foreach  agregacyjne w kolecjach stream
 			Element el = children.get(i).findInChildren(name);
 			if(el != null) return el;
 		}
@@ -90,16 +95,19 @@ public class Element {
 		return group.getTranslateZ();
 	}
 
-	public void setRotateX(double angle) {
-		rx.setAngle(angle);
+	public void setRotateX(double angle) { 
+		if(limitedRotation && (fixAngle(angle) < minRotX || fixAngle(angle) > maxRotX))return;
+		rx.setAngle(fixAngle(angle));
 	}
 
 	public void setRotateY(double angle) {
-		ry.setAngle(angle);
+		if(limitedRotation && (angle < minRotY || angle > maxRotY))return;
+		ry.setAngle(fixAngle(angle));
 	}
 
 	public void setRotateZ(double angle) {
-		rz.setAngle(angle);
+		if(limitedRotation && (angle < minRotZ || angle > maxRotZ))return;
+		rz.setAngle(fixAngle(angle));
 	}
 
 	public double getRotateX() {
@@ -138,5 +146,10 @@ public class Element {
 			sb.append("]{}\n");
 		}
 		return sb.toString();
+	}
+	
+	private static double fixAngle(double a) {
+		double ret = (a) % 360.0;
+		return ret;
 	}
 }
