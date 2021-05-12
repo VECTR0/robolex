@@ -19,9 +19,7 @@ public class AI {
 			if ((Environment.robot.getRotateY()+360)%360 > (angle+360)%360) Environment.robot.setRotateY(Environment.robot.getRotateY() - .3);
 			else 
 			Environment.robot.setRotateY(Environment.robot.getRotateY() + .3);
-			
 		}else {
-			
 			if(diff.magnitude() > .2)Environment.robot.moveForward(.01);
 		}
 		if(diff.magnitude() <= .6) {

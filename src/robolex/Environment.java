@@ -66,7 +66,7 @@ public class Environment{
 		if(testValueB <= 0 || testValueB >= 1)testValueC = -testValueC;
 		testValueB += testValueC;
 		testValue += 1;
-		AI.Update();
+		//AI.Update();
 	}
 	
 	public static double clamp(double x, double min, double max) {

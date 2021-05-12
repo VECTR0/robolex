@@ -3,13 +3,13 @@ package robolex;
 import javafx.geometry.Point3D;
 import javafx.scene.input.KeyCode;
 
-public class IK { /* Inverse Kinematics Estimation Algorithm IKEA */
+public class IK {
 	public Element target;
 	private final Element armRoot;
 	private Element end;
 	private Element j1, j2;
 	public boolean interpolating = false;
-	long oldTime, interpolationTime = 100000000;
+	private long oldTime, interpolationTime = 100000000;
 	Point3D old = new Point3D(0, 0, 0);
 	
 	
@@ -42,14 +42,14 @@ public class IK { /* Inverse Kinematics Estimation Algorithm IKEA */
 			}
 			return ((new Point3D(ix,iy,iz)).subtract(cur)).magnitude();
 		}	
-		
 		return (tar.subtract(cur)).magnitude();
 	}
 	
 	public double cost(long now) {
-		return error(now) ;//+ (float)(Math.abs(armRoot.getRotateX()) + Math.abs(j1.getRotateX()) + Math.abs(j2.getRotateX()))*0.0001f;
+		return error(now);
 	}
-	public void Foo(long now) {
+	
+	public void calculate(long now) {
 		double d0=0, d1=0, d2=0, d3=0;
 		double c, dx = 0.1f;
 		double alfa = 100f;
@@ -80,7 +80,6 @@ public class IK { /* Inverse Kinematics Estimation Algorithm IKEA */
 			j2.setRotateX(j2.getRotateX() - dx);
 			j2.limitedRotation = true;
 			
-			//if(error() > 0.1) alfa *= 10;
 			armRoot.setRotateY(armRoot.getRotateY() - d0 * alfa);
 			armRoot.setRotateX(armRoot.getRotateX() - d1 * alfa);
 			j1.setRotateX(j1.getRotateX() - d2 * alfa);
@@ -88,6 +87,5 @@ public class IK { /* Inverse Kinematics Estimation Algorithm IKEA */
 
 			if(error(now)<0.01f)break;
 		}
-		//System.out.println(d3 +" " +j2.getRotateX() + " " +j2.minRotX +" "+ j2.maxRotX);
 	}
 }

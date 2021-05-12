@@ -12,10 +12,9 @@ public class Target extends Element {
 	
 	public Target(String name, Element e, Color c) {
 		super(name, e);
-		
 		Sphere s = new Sphere(0.1f);
 		s.setMaterial(new PhongMaterial(c));
-		// group.getChildren().add(s);
+		 group.getChildren().add(s);
 	}
 	
 	@Override

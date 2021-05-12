@@ -182,10 +182,10 @@ public class Robot extends Element {
 				resetRB = true;
 			}
 			if(MainController.keysDown.size() > 0)oldTime = now;
-			ikLF.Foo(now);
-			ikLB.Foo(now);
-			ikRF.Foo(now);
-			ikRB.Foo(now);
+			ikLF.calculate(now);
+			ikLB.calculate(now);
+			ikRF.calculate(now);
+			ikRB.calculate(now);
 		
 			lastTime = now;
 		}

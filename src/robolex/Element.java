@@ -133,20 +133,19 @@ public class Element {
 		setTranslateZ(local.getZ());
 	}
 	
-
 	public Point3D getWorldPosition() {
 		Point3D local = Point3D.ZERO;
 		return group.localToScene(local);
 	}
 	
 	public void moveForward(double front) {
-		setTranslateX(getTranslateX() + Math.cos(Math.toRadians(getRotateY()-90))*front );
-		setTranslateZ(getTranslateZ() - Math.sin(Math.toRadians(getRotateY()-90))*front);
+		setTranslateX(getTranslateX() + Math.cos(Math.toRadians(getRotateY()-90)) * front );
+		setTranslateZ(getTranslateZ() - Math.sin(Math.toRadians(getRotateY()-90)) * front);
 	}
 	
 	public void moveRight(double right) {
-		setTranslateX(getTranslateX() + Math.cos(Math.toRadians(getRotateY()))*right);
-		setTranslateZ(getTranslateZ() - Math.sin(Math.toRadians(getRotateY()))*right);
+		setTranslateX(getTranslateX() + Math.cos(Math.toRadians(getRotateY())) * right);
+		setTranslateZ(getTranslateZ() - Math.sin(Math.toRadians(getRotateY())) * right);
 	}
 
 	@Override
@@ -175,7 +174,7 @@ public class Element {
 		return sb.toString();
 	}
 	
-	private static double fixAngle(double a) {
+	public static double fixAngle(double a) {
 		return (a) % 360.0;
 	}
 }
